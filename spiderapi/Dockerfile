@@ -1,10 +1,21 @@
-FROM python:3.8-alpine
+FROM python:3.8-slim AS compile-image
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential gcc git
 
-RUN mkdir /app
 WORKDIR /app
-ADD requirements.txt /app
-RUN pip3 install -r requirements.txt
-ADD . /app
+RUN git clone https://github.com/kajdreef/spidertools .
+RUN python -m venv /app
+ENV PATH="/app/bin:$PATH"
+RUN pip install .
 
 
-ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "hello_flask.wsgi:app"]
+FROM python:3.8-slim
+WORKDIR /app
+COPY --from=compile-image /app /app
+ENV PATH="/app/bin:$PATH"
+
+ADD requirements.txt .
+RUN python -m pip install -r requirements.txt
+ADD gunicorn_config.py .
+
+ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "spidertools.runners.server_cli:create_app('/research.sqlite')"]
