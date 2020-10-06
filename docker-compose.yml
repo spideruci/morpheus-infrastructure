@@ -11,3 +11,7 @@ services:
     
     spiderapi:
         build: './spiderapi'
+        volumes:
+            - type: bind
+              source: ${PWD}/research.sqlite
+              target: /usr/data/research.sqlite

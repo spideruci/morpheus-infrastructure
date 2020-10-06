@@ -10,6 +10,7 @@ RUN pip install .
 
 
 FROM python:3.8-slim
+RUN mkdir /usr/data/
 WORKDIR /app
 COPY --from=compile-image /app /app
 ENV PATH="/app/bin:$PATH"
@@ -18,4 +19,4 @@ ADD requirements.txt .
 RUN python -m pip install -r requirements.txt
 ADD gunicorn_config.py .
 
-ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "spidertools.runners.server_cli:create_app('/research.sqlite')"]
+ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "spidertools.runners.server_cli:create_app('/usr/data/research.sqlite')"]
