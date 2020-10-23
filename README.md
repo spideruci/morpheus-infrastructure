@@ -52,8 +52,6 @@ It should generate a 204 response as following:
 The backend assumes there will be a database called `research.sqlite` in the root directory of this project, created using the [spidertools](https://github.com/kajdreef/spidertools) project.
 
 ## Next steps:
-1. Load test while running on the raspberry pi?
-2. Setup graphana on rasbperry pi to collect metrics
-    - CPU Utilization
-    - RAM utilization
-    - IO performance
+1. Make the following files configurable based on a template (e.g., use jinja to create new template):
+    - Make `nginx.conf` configurable for local development and production
+    - Make `gunicorn_config.py` configurable for local development and production
