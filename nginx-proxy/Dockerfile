@@ -6,6 +6,8 @@ RUN unzip release.zip -d .
 RUN rm release.zip
 
 FROM nginx:alpine
+RUN mkdir /var/run/nginx-proxy-cache
 ADD ./nginx.conf /etc/nginx/nginx.conf
+ADD ./vhosts/ /etc/nginx/vhosts/
 WORKDIR /var/www/
 COPY --from=builder /app/build/ .
