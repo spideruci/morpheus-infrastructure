@@ -1,7 +1,7 @@
 FROM alpine:3.12.0 as builder
 RUN apk add wget zip unzip
 WORKDIR /app
-RUN wget https://github.com/kajdreef/test-matrix-visualization/releases/download/v1.1.0-user-study/release.zip
+RUN wget https://github.com/kajdreef/test-matrix-visualization/releases/download/v1.1.1-user-study/release.zip
 RUN unzip release.zip -d .
 RUN rm release.zip
 
