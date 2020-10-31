@@ -1,6 +1,7 @@
 # README
 
-Simple configuration for running the test visualization tool. It uses nginx, gunicorn, and flask, where flask and gunicorn are running the backend, while the visualization is served directly from nginx.
+Configuration for running the test visualization tool.
+It uses nginx, gunicorn, and flask, where flask and gunicorn are running the backend, while the visualization is served directly from nginx.
 
 ## Running the tool
 
