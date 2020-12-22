@@ -1,13 +1,16 @@
-FROM alpine:3.12.0 as builder
-RUN apk add wget zip unzip
+FROM node:lts-alpine3.12 as base-builder
+RUN apk add git
 WORKDIR /app
-RUN wget https://github.com/kajdreef/test-matrix-visualization/releases/download/v1.1.3-user-study/release.zip
-RUN unzip release.zip -d .
-RUN rm release.zip
+
+FROM base-builder as builder-morpheus
+RUN git clone https://github.com/spideruci/morpheus .
+RUN git checkout v1.1.3
+RUN yarn install
+RUN REACT_APP_API_ENDPOINT=http://api.kajdreef.com yarn build
 
 FROM nginx:alpine
 RUN mkdir /var/run/nginx-proxy-cache
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./vhosts/ /etc/nginx/vhosts/
-WORKDIR /var/www/
-COPY --from=builder /app/build/ .
+WORKDIR /var/www/morpheus
+COPY --from=builder-morpheus /app/build/ .

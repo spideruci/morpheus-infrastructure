@@ -4,6 +4,7 @@ RUN apt-get install -y --no-install-recommends build-essential gcc git
 
 WORKDIR /app
 RUN git clone https://github.com/kajdreef/spidertools .
+RUN git checkout v0.1.0
 RUN python -m venv /app
 ENV PATH="/app/bin:$PATH"
 RUN pip install .
