@@ -7,10 +7,32 @@ services:
       - "80:80"
       - "443:443"
     links:
-      - "spiderapi:spiderapi"
+      - "spiderapi-general:spiderapi"
+      - "spiderapi-user-study:spiderapi"
     
-  spiderapi:
+  spiderapi-general:
     build: ./spiderapi
+    entrypoint: 
+      - "gunicorn"
+      - "--config"
+      - "gunicorn_config.py"
+      - "spidertools.runners.server_cli:create_app('/usr/data/research.sqlite')"
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: ${PWD}/research.sqlite
+        target: /usr/data/research.sqlite
+
+  spiderapi-user-study:
+    build: ./spiderapi
+    entrypoint: 
+      - "gunicorn"
+      - "--config"
+      - "gunicorn_config.py"
+      - "spidertools.runners.server_cli:create_app('/usr/data/research.sqlite')"
+    ports:
+      - "5001:5000"
     volumes:
       - type: bind
         source: ${PWD}/research.sqlite
