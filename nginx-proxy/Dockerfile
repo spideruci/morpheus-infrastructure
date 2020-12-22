@@ -21,7 +21,8 @@ RUN yarn install
 RUN REACT_APP_API_ENDPOINT=http://api.kajdreef.com yarn build
 
 FROM nginx:alpine
-RUN mkdir /var/run/nginx-proxy-cache
+RUN mkdir /var/run/nginx-proxy-cache-general
+RUN mkdir /var/run/nginx-proxy-cache-user-study
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./vhosts/ /etc/nginx/vhosts/
 
