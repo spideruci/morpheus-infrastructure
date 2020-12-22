@@ -4,19 +4,19 @@ WORKDIR /app
 
 FROM base-builder as builder-spidertest
 RUN git clone https://github.com/spideruci/morpheus .
-RUN git checkout v1.1.5-user-study
+RUN git checkout v1.1.6-user-study
 RUN yarn install
 RUN REACT_APP_API_ENDPOINT=http://api.kajdreef.com yarn build
 
 FROM base-builder as builder-demo
 RUN git clone https://github.com/spideruci/morpheus .
-RUN git checkout v1.1.5-user-study
+RUN git checkout v1.1.6-user-study
 RUN yarn install
 RUN REACT_APP_API_ENDPOINT=http://api-spidertest.kajdreef.com yarn build
 
 FROM base-builder as builder-morpheus
 RUN git clone https://github.com/spideruci/morpheus .
-RUN git checkout v1.1.3
+RUN git checkout v1.1.4
 RUN yarn install
 RUN REACT_APP_API_ENDPOINT=http://api.kajdreef.com yarn build
 
