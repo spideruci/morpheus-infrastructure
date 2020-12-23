@@ -35,5 +35,5 @@ services:
       - "5001:5000"
     volumes:
       - type: bind
-        source: ${PWD}/research.sqlite
+        source: ${PWD}/user-study-12232020.sqlite
         target: /usr/data/research.sqlite
