@@ -7,8 +7,8 @@ services:
       - "80:80"
       - "443:443"
     links:
-      - "spiderapi-general:spiderapi"
-      - "spiderapi-user-study:spiderapi"
+      - "spiderapi-general:spiderapi1"
+      - "spiderapi-user-study:spiderapi2"
     
   spiderapi-general:
     build: ./spiderapi
