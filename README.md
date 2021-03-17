@@ -18,10 +18,12 @@ docker-compose build
 docker-compose up
 ```
 
+- You can also use `docker-compose build --no-cache` to force rebuilding the containers (needs to be done if you want the latest version).
+
 - To make use of the set up we need to resolve the host `spidertest.org` to the ip address docker is running, which should be 127.0.0.1.
 For mac os or linux this can be done by adding the following lines to `/etc/hosts`
 ```
-127.0.0.1       spidertest.org
+127.0.0.1       morpheus.spidertest.org
 127.0.0.1       api.spidertest.org
 ```
 
@@ -56,3 +58,8 @@ The backend assumes there will be a database called `research.sqlite` in the roo
 1. Make the following files configurable based on a template (e.g., use jinja to create new template):
     - Make `nginx.conf` configurable for local development and production
     - Make `gunicorn_config.py` configurable for local development and production
+2. Auto deployment from github
+3. Use [LetsEncrypt](https://letsencrypt.org/) to enable https.
+
+Database (zipped):
+- Latest Morpheus V2 [database link](https://www.icloud.com/iclouddrive/0ktaFr1bk4pVBIaIm7GMrbHMQ#research-20200316)

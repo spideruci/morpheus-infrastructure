@@ -4,7 +4,7 @@ RUN apt-get install -y --no-install-recommends build-essential gcc git
 
 WORKDIR /app
 RUN git clone https://github.com/kajdreef/spidertools .
-RUN git checkout v0.1.0
+RUN git checkout spidertools-v2
 RUN python -m venv /app
 ENV PATH="/app/bin:$PATH"
 RUN pip install .
@@ -17,7 +17,8 @@ COPY --from=compile-image /app /app
 ENV PATH="/app/bin:$PATH"
 
 ADD requirements.txt .
-RUN python -m pip install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 ADD gunicorn_config.py .
+ADD .env .
 
-ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "spidertools.runners.server_cli:create_app('/usr/data/research.sqlite')"]
+ENTRYPOINT ["gunicorn", "--config", "gunicorn_config.py", "morpheus.backend_cli:create_morpheus_backend()"]
